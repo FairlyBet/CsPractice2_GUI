@@ -39,6 +39,8 @@ namespace CsPractice3_GUI
                     SetValueButton.Enabled = true;
                     GenerateButton.Enabled = true;
 
+                    ShowValuesButton.Enabled = false;
+
                     CounterBox.Text = arrayOfRectangles.Counter();
                 }
             }
@@ -85,7 +87,6 @@ namespace CsPractice3_GUI
         }
 
         //Parallelepipeds 
-
         private void CreateButtonPar_Click(object sender, EventArgs e)
         {
             try
@@ -101,6 +102,8 @@ namespace CsPractice3_GUI
                     HeightBox.Enabled = true;
                     SetValuesPar.Enabled = true;
                     GenerateValuesPar.Enabled = true;
+
+                    ShowValuesPar.Enabled = false;
 
                     ParCounterBox.Text = arrayOfParallelepipeds.Counter();
                 }
