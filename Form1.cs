@@ -34,8 +34,6 @@ namespace CsPractice3_GUI
                 {
                     arrayOfRectangles = new Rectangles_GUI(Byte.Parse(SizeBox.Text));
 
-                    Form.ActiveForm.Text += "*";
-
                     Side1ValueBox.Enabled = true;
                     Side2ValueBox.Enabled = true;
                     SetValueButton.Enabled = true;
