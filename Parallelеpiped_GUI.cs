@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 
-namespace CsPractice3_GUI 
+namespace CsPractice3_GUI
 {
     class Parallelеpiped_GUI : Rectangle_GUI
     {
@@ -14,9 +11,7 @@ namespace CsPractice3_GUI
 
         public bool IsCube()
         {
-            if (firstSideLenght == secondSideLenght ? (firstSideLenght == height ? true : false) : false)
-                return true;
-            else return false;
+            return secondSideLenght == firstSideLenght && firstSideLenght == height ? true : false;
         }
 
         public new double GetSquare()
@@ -29,10 +24,24 @@ namespace CsPractice3_GUI
             return height * firstSideLenght * secondSideLenght;
         }
 
+        public new void Save(ref BinaryWriter binaryWriter)
+        {
+            binaryWriter.Write(firstSideLenght);
+            binaryWriter.Write(secondSideLenght);
+            binaryWriter.Write(height);
+        }
+
+        public new void Load(ref BinaryReader binaryReader)
+        {
+            firstSideLenght = binaryReader.ReadDouble();
+            secondSideLenght = binaryReader.ReadDouble();
+            height = binaryReader.ReadDouble();
+        }
+
         public override string ToString() => $"\nFirst side lenght = {String.Format("{0:0.0}", firstSideLenght)}" +
                 $"\nSecond side lenght = {String.Format("{0:0.0}", secondSideLenght)}" +
                 $"\nHeight lenght = {String.Format("{0:0.0}", height)}" +
                 $"\nSquare = {String.Format("{0:0.0}", GetSquare())}" +
-                $"\nCapacity = {String.Format("{0:0.0}",GetCapacity())}\n";          
+                $"\nCapacity = {String.Format("{0:0.0}", GetCapacity())}\n";
     }
 }

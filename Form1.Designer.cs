@@ -54,6 +54,8 @@
             this.Side1ValueBoxPar = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.HeightBox = new System.Windows.Forms.TextBox();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.SuspendLayout();
             // 
             // Side1ValueBox
@@ -369,6 +371,10 @@
             this.HeightBox.Text = "0";
             this.HeightBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
             // CsLab3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -404,6 +410,8 @@
             this.Name = "CsLab3";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Program";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CsLab3_FormClosing);
+            this.Shown += new System.EventHandler(this.CsLab3_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -437,5 +445,7 @@
         private System.Windows.Forms.TextBox Side1ValueBoxPar;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox HeightBox;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }

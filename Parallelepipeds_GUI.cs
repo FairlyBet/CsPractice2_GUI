@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace CsPractice3_GUI
 {
@@ -56,6 +54,40 @@ namespace CsPractice3_GUI
         public new string Counter()
         {
             return $"Parallelepiped {currentElement}/{parallelеpipeds.Length}";
+        }
+
+        public new void Load(string filePath)
+        {
+            FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+            BinaryReader binaryReader = new BinaryReader(fileStream, Encoding.UTF8);
+
+            parallelеpipeds = new Parallelеpiped_GUI[(byte)(fileStream.Length / sizeof(double) / 3)];
+
+            for (int i = 0; i < parallelеpipeds.Length; i++)
+            {
+                parallelеpipeds[i] = new Parallelеpiped_GUI();
+                parallelеpipeds[i].Load(ref binaryReader);
+            }
+
+            currentElement = (byte)parallelеpipeds.Length;
+
+            binaryReader.Close();
+            fileStream.Close();
+        }
+
+        public new void Save(string filePath)
+        {
+            FileStream fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write);
+
+            BinaryWriter binaryWriter = new BinaryWriter(fileStream, Encoding.UTF8);
+
+            for (int i = 0; i < currentElement; i++)
+            {
+                parallelеpipeds[i].Save(ref binaryWriter);
+            }
+
+            binaryWriter.Close();
+            fileStream.Close();
         }
 
         public override string ToString()

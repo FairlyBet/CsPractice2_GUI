@@ -1,26 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CsPractice3_GUI
 {
     public partial class CsLab3 : Form
     {
-        Rectangles_GUI arrayOfRectangles;
-        Parallelepipeds_GUI arrayOfParallelepipeds;
+        Rectangles_GUI arrayOfRectangles = new Rectangles_GUI();
+        Parallelepipeds_GUI arrayOfParallelepipeds = new Parallelepipeds_GUI();
 
         public CsLab3()
         {
             InitializeComponent();
+
+            openFileDialog1.Filter = "Text files(*.txt)|*.txt|All files(*.*)|*.*";
+            saveFileDialog1.Filter = "Text files(*.txt)|*.txt|All files(*.*)|*.*";
         }
 
-        //Rectangles
+        //Rectangles:
 
         private void CreateButton_Click(object sender, EventArgs e)
         {
@@ -86,7 +82,8 @@ namespace CsPractice3_GUI
             RectanglesInfTextBox.Text = arrayOfRectangles.ToString();
         }
 
-        //Parallelepipeds 
+        //Parallelepipeds:
+
         private void CreateButtonPar_Click(object sender, EventArgs e)
         {
             try
@@ -151,6 +148,72 @@ namespace CsPractice3_GUI
         private void ShowValuesPar_Click(object sender, EventArgs e)
         {
             ParInfTextBox.Text = arrayOfParallelepipeds.ToString();
+        }
+
+        private void CsLab3_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Сохранить значения прямоугольников в файл?", "", MessageBoxButtons.YesNo);
+
+            if (result == DialogResult.Yes)
+            {
+                if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
+                    return;
+
+                string path = saveFileDialog1.FileName;
+
+                arrayOfRectangles.Save(path);
+
+                MessageBox.Show("Значения сохранены");
+            }
+
+            DialogResult result1 = MessageBox.Show("Сохранить значения параллелепипедов в файл?", "", MessageBoxButtons.YesNo);
+
+            if (result1 == DialogResult.Yes)
+            {
+                if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
+                    return;
+
+                string path = saveFileDialog1.FileName;
+
+                arrayOfParallelepipeds.Save(path);
+
+                MessageBox.Show("Значения сохранены");
+            }
+        }
+
+        private void CsLab3_Shown(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Загрузить значения для прямоугольников из файла?", "", MessageBoxButtons.YesNo);
+
+            if (result == DialogResult.Yes)
+            {
+                if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
+                    return;
+
+                string path = openFileDialog1.FileName;
+
+                arrayOfRectangles.Load(path);
+
+                ShowValuesButton.Enabled = true;
+
+                MessageBox.Show("Значения загружены");
+            }
+
+            DialogResult result1 = MessageBox.Show("Загрузить значения для параллелепипедов из файла?", "", MessageBoxButtons.YesNo);
+
+            if (result1 == DialogResult.Yes)
+            {
+                if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
+                    return;
+
+                string path = openFileDialog1.FileName;
+
+                arrayOfParallelepipeds.Load(path);
+
+                ShowValuesPar.Enabled = true;
+
+                MessageBox.Show("Значения загружены");
+            }
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Text;
 
 namespace CsPractice3_GUI
 {
@@ -9,6 +11,7 @@ namespace CsPractice3_GUI
         private protected String AllInfo;
         Double averageSquare = 0;
         Byte moreThanAverage = 0;
+
         public Rectangles_GUI(byte size = 0)
         {
             rectangles = new Rectangle_GUI[size];
@@ -54,9 +57,43 @@ namespace CsPractice3_GUI
             return $"Rectangle {currentElement}/{rectangles.Length}";
         }
 
+        public void Load(string filePath)
+        {
+            FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+            BinaryReader binaryReader = new BinaryReader(fileStream, Encoding.UTF8);
+
+            rectangles = new Rectangle_GUI[fileStream.Length / sizeof(double) / 2];
+
+            for (int i = 0; i < rectangles.Length; i++)
+            {
+                rectangles[i] = new Rectangle_GUI();
+                rectangles[i].Load(ref binaryReader);
+            }
+
+            currentElement = (byte)rectangles.Length;
+
+            binaryReader.Close();
+            fileStream.Close();
+        }
+
+        public void Save(string filePath)
+        {
+            FileStream fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write);
+
+            BinaryWriter binaryWriter = new BinaryWriter(fileStream, Encoding.UTF8);
+
+            for (int i = 0; i < currentElement; i++)
+            {
+                rectangles[i].Save(ref binaryWriter);
+            }
+
+            binaryWriter.Close();
+            fileStream.Close();
+        }
+
         public override string ToString()
         {
-            AllInfo = null;
+            AllInfo = "";
             averageSquare = 0;
             moreThanAverage = 0;
 

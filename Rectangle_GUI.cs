@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace CsPractice3_GUI
 {
@@ -23,6 +24,18 @@ namespace CsPractice3_GUI
         public double GetSquare()
         {
             return firstSideLenght * secondSideLenght;
+        }
+
+        public void Load(ref BinaryReader binaryReader)
+        {
+            firstSideLenght = binaryReader.ReadDouble();
+            secondSideLenght = binaryReader.ReadDouble();
+        }
+
+        public void Save(ref BinaryWriter binaryWriter)
+        {
+            binaryWriter.Write(firstSideLenght);
+            binaryWriter.Write(secondSideLenght);
         }
 
         public override string ToString()
